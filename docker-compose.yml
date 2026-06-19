@@ -1,0 +1,36 @@
+services:
+  webhook:
+    build: .
+    env_file:
+      - ./.env
+    expose:
+      - 3000
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "3002:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+
+  hermes-line:
+    image: nousresearch/hermes-agent
+    command: gateway run
+    expose:
+      - 8646
+    env_file:
+      - ./.hermes-line/.env
+    volumes:
+      - ./.hermes-line:/opt/data
+    restart: unless-stopped
+  
+  hermes-discord:
+    image: nousresearch/hermes-agent
+    command: gateway run
+    env_file:
+      - ./.hermes-discord/.env
+    volumes:
+      - ./.hermes-discord:/opt/data
+    restart: unless-stopped
