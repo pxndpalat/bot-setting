@@ -20,7 +20,7 @@ import (
 
 const (
 	defaultPort             = 3000
-	defaultLineWebhookURL   = "http://hermes:8646/line/webhook"
+	defaultLineWebhookURL   = "http://hermes-line:8646/line/webhook"
 	maxLineWebhookBodyBytes = 100 * 1024
 )
 
